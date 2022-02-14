@@ -1,23 +1,19 @@
-import fetchAPI from '../../services';
+import fetchTokenAPI from '../../services';
 
 export const LOGIN = 'LOGIN';
 
-function login(data) {
-  return { type: LOGIN, payload: data };
+export function login(payload) {
+  return { type: LOGIN, payload };
 }
 
-function loginThunk() {
+function dispatchThunk() {
   return async (dispatch) => {
     try {
-      const API = fetchAPI();
-      /* ===> requisição da API */
-      /* ===> despacha action com os dados do personagem */
+      dispatch(fetchTokenAPI());
     } catch (error) {
-
-      /* ===> despacha action com o erro */
-
+      dispatch({ error });
     }
   };
 }
 
-export default loginThunk;
+export default dispatchThunk;
