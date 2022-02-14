@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 function LoginReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case LOGIN:
-    console.log(state);
+    console.log(action);
     return {
       ...state,
       email: action.payload.email,
