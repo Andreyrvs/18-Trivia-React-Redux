@@ -11,7 +11,7 @@ function dispatchThunk() {
     try {
       dispatch(fetchTokenAPI());
     } catch (error) {
-      dispatch({ error });
+      dispatch(error);
     }
   };
 }
