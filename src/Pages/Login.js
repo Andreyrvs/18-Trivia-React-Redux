@@ -33,6 +33,8 @@ class Login extends Component {
       name,
     });
 
+    localStorage.setItem('TOKEN_API', token);
+
     history.push('/game');
   }
 
