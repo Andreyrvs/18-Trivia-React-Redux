@@ -1,28 +1,26 @@
 import fetchTokenAPI from '../../services';
 
-export const LOGIN = 'LOGIN';
+export const PLAYER = 'PLAYER';
 export const GET_TOKEN = 'GET_TOKEN';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
 
-export function login(payload) {
-  return { type: LOGIN, payload };
+export function player(payload) {
+  return { type: PLAYER, payload };
 }
 
-function failedRequest(error) {
-  return { type: FAILED_REQUEST, payload: error };
-}
-
-export const tokenSuccess = (payload) => ({ type: GET_TOKEN, payload });
+const getToken = (payload) => ({ type: GET_TOKEN, payload });
 
 export function tokenThunk() {
   return async (dispatch) => {
     try {
       const tokenString = await fetchTokenAPI();
-      dispatch(tokenSuccess(tokenString));
+
+      localStorage.setItem('token', tokenString);
+      dispatch(getToken(tokenString));
     } catch (error) {
-      dispatch(failedRequest(error));
+      console.log(error);
     }
   };
 }
 
-export default login;
+export default player;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../components/Button';
-import { login, tokenThunk } from '../Redux/actions/index';
+import { player, tokenThunk } from '../Redux/actions/index';
 
 class Login extends Component {
   constructor() {
@@ -18,29 +18,18 @@ class Login extends Component {
     };
   }
 
-  saveToken = (token) => {
-    const getLocalStorage = localStorage.getItem('token');
-    console.log(getLocalStorage);
-
-    localStorage.setItem('token', token);
-  }
-
   handleClicks(event) {
     event.preventDefault();
 
     const { email, name } = this.state;
-    const { history, onSubmit, tokenAPI, token } = this.props;
-    console.log(token);
-    tokenAPI({
-      token,
-    });
+    const { history, login, tokenAPI } = this.props;
 
-    onSubmit({
-      email,
+    login({
+      gravatarEmail: email,
       name,
     });
+    tokenAPI();
 
-    this.saveToken(token);
     history.push('/game');
   }
 
@@ -110,17 +99,13 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  token: state.TokenReducer.token,
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (state) => dispatch(login(state)),
-  tokenAPI: (state) => dispatch(tokenThunk(state)),
+  login: (state) => dispatch(player(state)),
+  tokenAPI: () => dispatch(tokenThunk()),
 });
 
 Login.propTypes = {
   onSubmit: PropTypes.func,
 }.isRequire;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
