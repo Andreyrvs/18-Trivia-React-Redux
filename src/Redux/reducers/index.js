@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
-import LoginReducer from './LoginReducer';
+import player from './player';
+import token from './token';
 
-// import primeiroReducer from './primeiroReducer';
-// import segundoReducer from './segundoReducer';
 const rootReducer = combineReducers({
-  LoginReducer,
-  // segundoReducer,
+  player,
+  token,
 });
 
 export default rootReducer;

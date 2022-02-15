@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../components/Button';
-import login from '../Redux/actions/index';
+import { player, tokenThunk } from '../Redux/actions/index';
 
 class Login extends Component {
   constructor() {
     super();
     this.handleValidation = this.handleValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.formSubmit = this.formSubmit.bind(this);
+    this.handleClicks = this.handleClicks.bind(this);
+
     this.state = {
       email: '',
       name: '',
@@ -17,15 +18,19 @@ class Login extends Component {
     };
   }
 
-  formSubmit(event) {
-    event.preventDefault(event);
-    const { email, name } = this.state;
-    const { onSubmit } = this.props;
+  handleClicks(event) {
+    event.preventDefault();
 
-    onSubmit({
-      email,
-      nome: name,
+    const { email, name } = this.state;
+    const { history, login, tokenAPI } = this.props;
+
+    login({
+      gravatarEmail: email,
+      name,
     });
+    tokenAPI();
+
+    history.push('/game');
   }
 
   handleChange({ target }) {
@@ -58,7 +63,7 @@ class Login extends Component {
     return (
       <div className="App">
         <section>
-          <form onSubmit={ (event) => this.formSubmit(event) }>
+          <form>
             <label htmlFor="input-email">
               Email do Gravatar:
               <input
@@ -82,7 +87,8 @@ class Login extends Component {
             <Button
               dataTest="btn-play"
               isDisable={ disable }
-              btnType="submit"
+              btnType="button"
+              handleClick={ this.handleClicks }
             >
               Play
             </Button>
@@ -94,7 +100,8 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (state) => dispatch(login(state)),
+  login: (state) => dispatch(player(state)),
+  tokenAPI: () => dispatch(tokenThunk()),
 });
 
 Login.propTypes = {
