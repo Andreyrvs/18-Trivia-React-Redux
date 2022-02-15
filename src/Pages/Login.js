@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../components/Button';
 import login from '../Redux/actions/index';
+import fetchTokenAPI from '../services';
 
 class Login extends Component {
   constructor() {
     super();
     this.handleValidation = this.handleValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.formSubmit = this.formSubmit.bind(this);
+    this.handleClicks = this.handleClicks.bind(this);
+
     this.state = {
       email: '',
       name: '',
@@ -17,15 +19,21 @@ class Login extends Component {
     };
   }
 
-  formSubmit(event) {
-    event.preventDefault(event);
+  async handleClicks(event) {
+    event.preventDefault();
+
     const { email, name } = this.state;
-    const { onSubmit } = this.props;
+    const { history, onSubmit } = this.props;
+
+    const token = await fetchTokenAPI();
 
     onSubmit({
+      token,
       email,
-      nome: name,
+      name,
     });
+
+    history.push('/game');
   }
 
   handleChange({ target }) {
@@ -82,7 +90,8 @@ class Login extends Component {
             <Button
               dataTest="btn-play"
               isDisable={ disable }
-              btnType="submit"
+              btnType="button"
+              handleClick={ this.handleClicks }
             >
               Play
             </Button>
