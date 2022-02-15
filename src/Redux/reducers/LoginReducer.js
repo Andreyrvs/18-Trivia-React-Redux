@@ -1,20 +1,18 @@
 import { LOGIN } from '../actions';
 
 const INITIAL_STATE = {
-  nome: '',
+  name: '',
   email: '',
-  token: '',
 };
 
 function LoginReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case LOGIN:
-    console.log(action);
+    // console.log(action);
     return {
       ...state,
       email: action.payload.email,
-      nome: action.payload.nome,
-      token: action.payload.token,
+      name: action.payload.name,
     };
   default:
     return state;
