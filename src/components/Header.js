@@ -10,7 +10,7 @@ class Header extends Component {
       <header>
         <img
           data-testid="header-profile-picture"
-          src={ `https://www.gravatar.com/avatar/${md5(player.gravatarEmail).toString()}`}
+          src={ `https://www.gravatar.com/avatar/${md5(player.gravatarEmail).toString()}` }
           alt="Foto de perfil"
         />
         <span data-testid="header-player-name">{ player.name }</span>
