@@ -60,8 +60,17 @@ class Login extends Component {
 
   render() {
     const { disable, name, email } = this.state;
+    const { history } = this.props;
     return (
       <div className="App">
+        <section>
+          <Button
+            dataTest="btn-settings"
+            handleClick={ () => { history.push('/settings'); } }
+          >
+            Configurações
+          </Button>
+        </section>
         <section>
           <form>
             <label htmlFor="input-email">
