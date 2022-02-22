@@ -1,7 +1,7 @@
 import { GET_TOKEN } from '../actions';
 
 const INITIAL_STATE = {
-  token: '',
+  token: {},
 };
 
 function token(state = INITIAL_STATE, action) {

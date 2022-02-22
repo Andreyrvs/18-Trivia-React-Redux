@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../components/Button';
-import { player, tokenThunk } from '../Redux/actions/index';
+import player, { tokenThunk } from '../Redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -64,25 +64,7 @@ class Login extends Component {
     return (
       <div className="App">
         <section>
-          <Button
-            dataTest="btn-settings"
-            handleClick={ () => { history.push('/settings'); } }
-          >
-            Configurações
-          </Button>
-        </section>
-        <section>
           <form>
-            <label htmlFor="input-email">
-              Email do Gravatar:
-              <input
-                id="input-email"
-                data-testid="input-gravatar-email"
-                name="email"
-                value={ email }
-                onChange={ this.handleChange }
-              />
-            </label>
             <label htmlFor="input-name">
               Nome do Jogador:
               <input
@@ -93,6 +75,17 @@ class Login extends Component {
                 onChange={ this.handleChange }
               />
             </label>
+            <label htmlFor="input-email">
+              Email do Gravatar:
+              <input
+                id="input-email"
+                data-testid="input-gravatar-email"
+                name="email"
+                value={ email }
+                onChange={ this.handleChange }
+              />
+            </label>
+
             <Button
               dataTest="btn-play"
               isDisable={ disable }
@@ -100,6 +93,12 @@ class Login extends Component {
               handleClick={ this.handleClicks }
             >
               Play
+            </Button>
+            <Button
+              dataTest="btn-settings"
+              handleClick={ () => { history.push('/settings'); } }
+            >
+              Configurações
             </Button>
           </form>
         </section>
