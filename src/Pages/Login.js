@@ -9,7 +9,7 @@ class Login extends Component {
     super();
     this.handleValidation = this.handleValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleClicks = this.handleClicks.bind(this);
+    this.handleClick = this.handleClick.bind(this);
 
     this.state = {
       email: '',
@@ -18,8 +18,8 @@ class Login extends Component {
     };
   }
 
-  handleClicks(event) {
-    event.preventDefault();
+  handleClick(event) {
+    event.preventDefault(event);
 
     const { email, name } = this.state;
     const { history, login, tokenAPI } = this.props;
@@ -90,7 +90,7 @@ class Login extends Component {
               dataTest="btn-play"
               isDisable={ disable }
               btnType="button"
-              handleClick={ this.handleClicks }
+              handleClick={ this.handleClick }
             >
               Play
             </Button>

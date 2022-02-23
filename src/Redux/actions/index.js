@@ -12,15 +12,16 @@ export const playerGame = (payload) => ({ type: PLAYER_GAME, payload });
 
 const getToken = (payload) => ({ type: GET_TOKEN, payload });
 
-export const tokenThunk = () => async (dispatch) => {
-  try {
-    const tokenString = await fetchTokenAPI();
-    console.log(tokenString);
-    localStorage.setItem('token', JSON.stringify(tokenString));
-    dispatch(getToken(tokenString));
-  } catch (error) {
-    console.log(error);
-  }
-};
+export function tokenThunk() {
+  return async (dispatch) => {
+    try {
+      const tokenString = await fetchTokenAPI();
+      localStorage.setItem('token', JSON.stringify(tokenString));
+      dispatch(getToken(tokenString));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
 export default player;

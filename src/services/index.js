@@ -1,13 +1,23 @@
 const URL_TOKEN_API = 'https://opentdb.com/api_token.php?command=request';
 
 export const fetchQuestionsAPI = async (url) => {
-  const data = await (await fetch(url)).json();
-  return data;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const fetchTokenAPI = async () => {
-  const data = await (await fetch(URL_TOKEN_API)).json();
-  return data;
+  try {
+    const response = await fetch(URL_TOKEN_API);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default fetchTokenAPI;
