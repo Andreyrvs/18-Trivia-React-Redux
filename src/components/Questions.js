@@ -6,6 +6,7 @@ class Question extends Component {
   constructor() {
     super();
     this.handleAnswers = this.handleAnswers.bind(this);
+    this.handleBorderColor = this.handleBorderColor.bind(this);
   }
 
   handleAnswers() {
@@ -21,6 +22,9 @@ class Question extends Component {
             <section key={ index } data-testid="answer-options">
               <Button
                 btnType="button"
+                handleClick={ ({ target }) => this.handleBorderColor(
+                  target, results[0].incorrect_answers, results[0].correct_answer, item,
+                ) }
                 dataTest={ results[0].correct_answer === item
                   ? 'correct-answer'
                   : `wrong-answer-${index}` }
@@ -32,6 +36,14 @@ class Question extends Component {
           ))}
         </>
       );
+    }
+  }
+
+  handleBorderColor(target, incorrectAnswers, correctAnswer, item) {
+    if (incorrectAnswers === item) {
+      target.style.border = '3px solid rgb(255, 0, 0)';
+    } else {
+      target.style.border = '3px solid rgb(6, 240, 15)';
     }
   }
 
