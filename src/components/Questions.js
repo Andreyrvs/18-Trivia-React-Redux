@@ -64,7 +64,7 @@ class Question extends Component {
 
   render() {
     const { results } = this.props;
-
+    console.log(results);
     if (results.length === 0) {
       return <h1>Loading</h1>;
     }
