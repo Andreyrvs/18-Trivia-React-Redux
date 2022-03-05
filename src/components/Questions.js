@@ -7,12 +7,12 @@ class Question extends Component {
     const { questionCategory, questionText, answers } = this.props;
     return (
       <section>
-        {/* <div>
+        <div>
           <h1>{questionCategory}</h1>
           <h2>{questionText}</h2>
         </div>
         <div>
-          {answers.map((item) => (
+          {/* {answers.map((item) => (
             <div key={ item }>
               <Button
                 btnType="Button"
@@ -20,17 +20,17 @@ class Question extends Component {
                 {item}
               </Button>
             </div>
-          ))}
-        </div> */}
+          ))} */}
+        </div>
       </section>
     );
   }
 }
 
 Question.propTypes = {
-  questionCategory: PropTypes.string.isRequired,
-  questionText: PropTypes.string.isRequired,
-  answers: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
+  questionCategory: PropTypes.string,
+  questionText: PropTypes.string,
+  answers: PropTypes.arrayOf(PropTypes.string),
+}.isRequire;
 
 export default Question;

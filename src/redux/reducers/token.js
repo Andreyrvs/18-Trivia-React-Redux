@@ -1,8 +1,6 @@
 import { GET_TOKEN } from '../actions';
 
-const INITIAL_STATE = {
-  token: {},
-};
+const INITIAL_STATE = '';
 
 function token(state = INITIAL_STATE, action) {
   switch (action.type) {

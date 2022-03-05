@@ -27,9 +27,7 @@ class Login extends Component {
       gravatarEmail: email,
       name,
     });
-    token();
-
-    history.push('/game');
+    token().then(() => history.push('/game'));
   }
 
   handleChange({ target }) {

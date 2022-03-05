@@ -15,7 +15,7 @@ export function tokenThunk() {
   return async (dispatch) => {
     try {
       const tokenString = await fetchTokenAPI();
-      // localStorage.setItem('token', JSON.stringify(tokenString));
+      // localStorage.setItem('token', tokenString);
       dispatch(getToken(tokenString));
     } catch (error) {
       console.log(error);
