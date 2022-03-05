@@ -1,9 +1,9 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import Login from './Pages/Login';
-import Game from './Pages/Game';
 import './App.css';
-import Settings from './Pages/Settings';
+import { Route, Switch } from 'react-router-dom';
+import Login from './pages/Login';
+import Game from './pages/Game';
+import Settings from './pages/Settings';
 
 export default function App() {
   return (

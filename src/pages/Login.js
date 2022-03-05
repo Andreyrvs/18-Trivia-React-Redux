@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Button from '../components/Button';
-import player, { tokenThunk } from '../Redux/actions';
+import tokenThunk, { player } from '../redux/actions/index';
 
 class Login extends Component {
   constructor() {
@@ -22,15 +21,13 @@ class Login extends Component {
     event.preventDefault(event);
 
     const { email, name } = this.state;
-    const { history, login, tokenAPI } = this.props;
+    const { history, login, token } = this.props;
 
     login({
       gravatarEmail: email,
       name,
     });
-    tokenAPI();
-
-    history.push('/game');
+    token().then(() => history.push('/game'));
   }
 
   handleChange({ target }) {
@@ -61,6 +58,7 @@ class Login extends Component {
   render() {
     const { disable, name, email } = this.state;
     const { history } = this.props;
+
     return (
       <div className="App">
         <section>
@@ -86,20 +84,21 @@ class Login extends Component {
               />
             </label>
 
-            <Button
-              dataTest="btn-play"
-              isDisable={ disable }
-              btnType="button"
-              handleClick={ this.handleClick }
+            <button
+              data-testid="btn-play"
+              disabled={ disable }
+              type="button"
+              onClick={ this.handleClick }
             >
               Play
-            </Button>
-            <Button
-              dataTest="btn-settings"
-              handleClick={ () => { history.push('/settings'); } }
+            </button>
+            <button
+              data-testid="btn-settings"
+              type="button"
+              onClick={ () => { history.push('/settings'); } }
             >
               Configurações
-            </Button>
+            </button>
           </form>
         </section>
       </div>
@@ -109,7 +108,7 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   login: (state) => dispatch(player(state)),
-  tokenAPI: () => dispatch(tokenThunk()),
+  token: () => dispatch(tokenThunk()),
 });
 
 Login.propTypes = {
