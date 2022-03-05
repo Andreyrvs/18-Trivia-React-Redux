@@ -7,11 +7,21 @@ class Question extends Component {
     super();
     this.handleAnswers = this.handleAnswers.bind(this);
     this.handleBorderColor = this.handleBorderColor.bind(this);
+    this.handleCountDown = this.handleCountDown.bind(this);
 
     this.state = {
       correctColor: '',
       incorrectColor: '',
+      timer: 5,
     };
+  }
+
+  componentDidMount() {
+    this.handleCountDown();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.myInterval);
   }
 
   handleAnswers() {
@@ -62,9 +72,24 @@ class Question extends Component {
       });
   }
 
+  handleCountDown() {
+    const { timer } = this.state;
+    const THIRTY_SECONDS = 1000;
+    this.myInterval = setInterval(() => {
+      this.setState((prevState) => ({
+        timer: prevState.timer - 1,
+      }));
+    }, THIRTY_SECONDS);
+    if (timer === 0) {
+      clearInterval(this.myInterval);
+    }
+  }
+
   render() {
     const { results } = this.props;
-    console.log(results);
+    const { timer } = this.state;
+
+    // console.log(results);
     if (results.length === 0) {
       return <h1>Loading</h1>;
     }
@@ -73,7 +98,11 @@ class Question extends Component {
         <h2 data-testid="question-category">{results[0].category}</h2>
         <h2 data-testid="question-text">{results[0].question}</h2>
         {this.handleAnswers()}
-
+        <h1>
+          Timer:
+          {' '}
+          {timer}
+        </h1>
       </>
     );
   }
