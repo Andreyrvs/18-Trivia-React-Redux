@@ -7,10 +7,16 @@ class Question extends Component {
     super();
     this.handleAnswers = this.handleAnswers.bind(this);
     this.handleBorderColor = this.handleBorderColor.bind(this);
+
+    this.state = {
+      correctColor: '',
+      incorrectColor: '',
+    };
   }
 
   handleAnswers() {
     const { results } = this.props;
+    const { correctColor, incorrectColor } = this.state;
     const NUMBER_FIVE = 0.5;
     if (results.length > 0) {
       const answers = [...results[0].incorrect_answers, results[0].correct_answer];
@@ -21,9 +27,14 @@ class Question extends Component {
           {shuffled.map((item, index) => (
             <section key={ index } data-testid="answer-options">
               <Button
+                style={ { border: `${
+                  results[0].correct_answer === item
+                    ? correctColor
+                    : incorrectColor}`,
+                } }
                 btnType="button"
-                handleClick={ ({ target }) => this.handleBorderColor(
-                  target, results[0].incorrect_answers, results[0].correct_answer, item,
+                handleClick={ () => this.handleBorderColor(
+                  results[0].correct_answer, item,
                 ) }
                 dataTest={ results[0].correct_answer === item
                   ? 'correct-answer'
@@ -39,12 +50,16 @@ class Question extends Component {
     }
   }
 
-  handleBorderColor(target, incorrectAnswers, correctAnswer, item) {
-    if (incorrectAnswers === item) {
-      target.style.border = '3px solid rgb(255, 0, 0)';
-    } else {
-      target.style.border = '3px solid rgb(6, 240, 15)';
-    }
+  handleBorderColor(correctAnswer, item) {
+    return correctAnswer === item
+      ? this.setState({
+        correctColor: '3px solid rgb(6, 240, 15)',
+        incorrectColor: '3px solid rgb(255, 0, 0)',
+      })
+      : this.setState({
+        incorrectColor: '3px solid rgb(255, 0, 0)',
+        correctColor: '3px solid rgb(6, 240, 15)',
+      });
   }
 
   render() {
