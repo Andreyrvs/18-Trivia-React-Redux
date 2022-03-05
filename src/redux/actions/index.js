@@ -1,20 +1,24 @@
+import fetchTokenAPI from '../../services';
+
 export const PLAYER = 'PLAYER';
+export const GET_TOKEN = 'GET_TOKEN';
 
 export function player(payload) {
   return { type: PLAYER, payload };
 }
 
-function tokenThunk() {
+export function getToken(payload) {
+  return { type: GET_TOKEN, payload };
+}
+
+export function tokenThunk() {
   return async (dispatch) => {
     try {
-
-      /* ===> requisição da API */
-      /* ===> despacha action com os dados do personagem */
-
+      const tokenString = await fetchTokenAPI();
+      localStorage.setItem('token', JSON.stringify(tokenString));
+      dispatch(getToken(tokenString));
     } catch (error) {
-
-      /* ===> despacha action com o erro */
-
+      console.log(error);
     }
   };
 }
