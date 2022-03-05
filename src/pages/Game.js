@@ -43,16 +43,21 @@ export class Game extends Component {
 
   render() {
     const { results } = this.state;
-    // const { question, category, correct_answer } = results[0];
 
     return (
       <section>
         <Header />
         <main>
-          {results.map((item, index) => (
-            <span key={ index }>{ console.log(item)}</span>
-          ))}
-          {/* <Question correct_answer={ results } /> */}
+          {
+            results.map((item, index) => (
+              <Question
+                key={ index }
+                category={ item.category }
+                question={ item.question }
+                answears={ [...item.incorrect_answers, item.correct_answers] }
+              />
+            ))
+          }
         </main>
       </section>
     );

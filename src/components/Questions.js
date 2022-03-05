@@ -4,29 +4,18 @@ import Button from './Button';
 
 class Question extends Component {
   render() {
-    const { questionCategory, questionText, answers } = this.props;
+    const { category, question, answears } = this.props;
+    console.log('category', category);
+    console.log('question', question);
+    console.log('answears', answears);
     return (
       <section>
-        <div>
-          <h1>{questionCategory}</h1>
-          <h2>{questionText}</h2>
-        </div>
-        <div>
-          {/* {answers.map((item) => (
-            <div key={ item }>
-              <Button
-                btnType="Button"
-              >
-                {item}
-              </Button>
-            </div>
-          ))} */}
-        </div>
+        <div data-testid="question-category">{category}</div>
+        <div data-testid="question-text">{question}</div>
       </section>
     );
   }
 }
-
 Question.propTypes = {
   questionCategory: PropTypes.string,
   questionText: PropTypes.string,
