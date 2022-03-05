@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import tokenThunk from '../redux/actions';
 import fetchTokenAPI, { fetchQuestionsAPI } from '../services';
+import Question from '../components/Questions';
 
 export class Game extends Component {
   constructor(props) {
@@ -19,21 +20,26 @@ export class Game extends Component {
   }
 
   async generateToken() {
-    const { tokenThunks } = this.props;
+    const { token } = this.props;
 
     const RESPONSE_CODE_THREE = 3;
     const getlocalToken = localStorage.getItem('token');
-    const questions = await fetchQuestionsAPI(getlocalToken);
-    console.log(questions);
+    const questions = await fetchQuestionsAPI(token);
+
+    console.log('questions', questions);
+    console.log('getLocalToken', getlocalToken);
     if (getlocalToken) {
+      console.log('Passou 1 if');
       this.setState({
         results: [questions.results],
       });
     }
     if (questions.response_code === RESPONSE_CODE_THREE) {
-      await tokenThunks();
+      console.log('passou 2 if');
+      await fetchTokenAPI();
       const newToken = localStorage.getItem('token');
       const newQuestions = await fetchQuestionsAPI(newToken);
+      console.log('NewQuestions', newQuestions);
       this.setState({
         results: [newQuestions.results],
       });
@@ -41,20 +47,26 @@ export class Game extends Component {
   }
 
   render() {
+    const { results } = this.state;
+    console.log('results', results);
+
     return (
       <section>
         <Header />
+        <main>
+          {/* <Question /> */}
+        </main>
       </section>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  tokenThunks: () => dispatch(tokenThunk()),
+const mapStateToProps = ({ token }) => ({
+  token,
 });
 
 Game.propTypes = {
   tokenThunks: PropTypes.func,
 }.isRequire;
 
-export default connect(null, mapDispatchToProps)(Game);
+export default connect(mapStateToProps)(Game);
