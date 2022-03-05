@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import player, { tokenThunk } from '../redux/actions/index';
+import tokenThunk, { player } from '../redux/actions/index';
 
 class Login extends Component {
   constructor() {
@@ -59,7 +59,6 @@ class Login extends Component {
 
   render() {
     const { disable, name, email } = this.state;
-    const { history } = this.props;
     return (
       <div className="App">
         <section>

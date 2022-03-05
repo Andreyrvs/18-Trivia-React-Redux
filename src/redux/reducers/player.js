@@ -7,13 +7,13 @@ const INITIAL_STATE = {
   gravatarEmail: '',
 };
 
-function player(state = INITIAL_STATE, { type, payload }) {
-  switch (type) {
+function player(state = INITIAL_STATE, action) {
+  switch (action.type) {
   case PLAYER:
     return {
       ...state,
-      name: payload.name,
-      gravatarEmail: payload.gravatarEmail,
+      name: action.payload.name,
+      gravatarEmail: action.payload.gravatarEmail,
     };
 
   default:

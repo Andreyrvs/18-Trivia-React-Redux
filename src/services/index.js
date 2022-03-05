@@ -14,7 +14,7 @@ const fetchTokenAPI = async () => {
   try {
     const response = await fetch(URL_TOKEN_API);
     const data = await response.json();
-    return data;
+    return data.token;
   } catch (error) {
     console.log(error);
   }
