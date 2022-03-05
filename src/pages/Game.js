@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-// import tokenThunk from '../redux/actions';
 import { fetchQuestionsAPI } from '../services';
 import Question from '../components/Questions';
 import tokenThunk from '../redux/actions';
@@ -49,26 +48,13 @@ export class Game extends Component {
         <Header />
         <main>
           <Question results={ results } />
-          {/* {
-            results.map((item, index) => (
-              <Question
-                key={ index }
-                category={ item.category }
-                question={ item.question }
-                answers={ [item.incorrect_answers, item.correct_answer] }
-              />
-            ))
-          } */}
         </main>
       </section>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log('state', state);
-  return { token: state.token };
-};
+const mapStateToProps = (state) => ({ token: state.token });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchToken: () => dispatch(tokenThunk()),

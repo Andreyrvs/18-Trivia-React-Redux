@@ -6,9 +6,6 @@ class Question extends Component {
   constructor() {
     super();
     this.handleAnswers = this.handleAnswers.bind(this);
-    this.state = {
-      // answersShuffled: [],
-    };
   }
 
   handleAnswers() {
@@ -17,8 +14,7 @@ class Question extends Component {
     if (results.length > 0) {
       const answers = [...results[0].incorrect_answers, results[0].correct_answer];
       const shuffled = answers.sort(() => Math.random() - NUMBER_FIVE);
-      console.log('answers', answers);
-      console.log('shuffled', shuffled);
+
       return (
         <>
           {shuffled.map((item, index) => (
