@@ -19,14 +19,15 @@ class Question extends Component {
       const shuffled = answers.sort(() => Math.random() - NUMBER_FIVE);
       console.log('answers', answers);
       console.log('shuffled', shuffled);
-
       return (
         <>
           {shuffled.map((item, index) => (
             <section key={ index } data-testid="answer-options">
               <Button
                 btnType="button"
-                dataTest={ results[0].correct_answer === item ? 'correct-answer' : `wrong-answer-${index}` }
+                dataTest={ results[0].correct_answer === item
+                  ? 'correct-answer'
+                  : `wrong-answer-${index}` }
               >
                 {item}
 
