@@ -48,16 +48,17 @@ export class Game extends Component {
       <section>
         <Header />
         <main>
-          {
+          <Question results={ results } />
+          {/* {
             results.map((item, index) => (
               <Question
                 key={ index }
                 category={ item.category }
                 question={ item.question }
-                answears={ [...item.incorrect_answers, item.correct_answers] }
+                answers={ [item.incorrect_answers, item.correct_answer] }
               />
             ))
-          }
+          } */}
         </main>
       </section>
     );
