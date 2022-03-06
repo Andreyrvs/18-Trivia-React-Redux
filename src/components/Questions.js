@@ -45,14 +45,8 @@ class Question extends Component {
                     : incorrectColor}`,
                 } }
                 btnType="button"
-
                 bsClass="btn btn-secondary btn-lg"
                 isDisable={ timer === 0 }
-                style={ { border: `${
-                  results[0].correct_answer === item
-                    ? correctColor
-                    : incorrectColor}`,
-                } }
                 handleClick={ () => this.handleBorderColor(
                   results[0].correct_answer, item,
                 ) }
@@ -104,7 +98,6 @@ class Question extends Component {
     const { results } = this.props;
     const { timer } = this.state;
 
-    // console.log(results);
     if (results.length === 0) {
       return <h1>Loading</h1>;
     }
