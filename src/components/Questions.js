@@ -9,14 +9,16 @@ class Question extends Component {
   constructor() {
     super();
     this.handleAnswers = this.handleAnswers.bind(this);
-    this.handleBorderColor = this.handleBorderColor.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handleCountDown = this.handleCountDown.bind(this);
     this.handleScore = this.handleScore.bind(this);
+    this.handleButtonNext = this.handleButtonNext.bind(this);
 
     this.state = {
       correctColor: '',
       incorrectColor: '',
       timer: 30,
+      isHidden: false,
     };
   }
 
@@ -50,7 +52,7 @@ class Question extends Component {
                 btnType="button"
                 bsClass="btn btn-secondary btn-lg"
                 isDisable={ timer === 0 }
-                handleClick={ () => this.handleBorderColor(
+                handleClick={ () => this.handleClick(
                   results[0].correct_answer, item,
                 ) }
                 dataTest={ results[0].correct_answer === item
@@ -67,9 +69,10 @@ class Question extends Component {
     }
   }
 
-  handleBorderColor(correctAnswer, item) {
+  handleClick(correctAnswer, item) {
     clearInterval(this.timer);
     this.handleScore(correctAnswer, item);
+    this.handleButtonNext();
     return correctAnswer === item
       ? this.setState({
         correctColor: '3px solid rgb(6, 240, 15)',
@@ -87,7 +90,7 @@ class Question extends Component {
       const { timer } = this.state;
       if (timer === 0) {
         clearInterval(this.timer);
-        this.handleBorderColor();
+        this.handleClick();
       } else {
         this.setState((prevState) => ({
           timer: prevState.timer - 1,
@@ -126,9 +129,15 @@ class Question extends Component {
     score({ score: sumResults });
   }
 
+  handleButtonNext() {
+    this.setState({
+      isHidden: true,
+    });
+  }
+
   render() {
     const { results } = this.props;
-    const { timer } = this.state;
+    const { timer, isHidden } = this.state;
 
     if (results.length === 0) {
       return <h1>Loading</h1>;
@@ -153,13 +162,23 @@ class Question extends Component {
             </section>
           </section>
           <h1 className="text-center text-danger">
-            Timer:
+            Tempo:
             {' '}
             {timer}
           </h1>
         </section>
         <section className="game__answers">
           {this.handleAnswers()}
+          <Button
+            btnType="button"
+            bsClass="btn btn-success btn-lg"
+            dataTest="btn-next"
+            style={ isHidden ? { display: 'block' } : { display: 'none' } }
+            // handleClick={ this.handleButtonNext }
+          >
+            Proxima
+
+          </Button>
         </section>
       </section>
     );
