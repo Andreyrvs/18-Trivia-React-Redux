@@ -99,20 +99,22 @@ class Question extends Component {
     }
     return (
       <section className="main__game">
-        <section className="game__questions card">
-          <section className="questions card-body">
-            <h2
-              className="card-header"
-              data-testid="question-category"
-            >
-              {results[0].category}
-            </h2>
-            <p
-              className="card-text lead"
-              data-testid="question-text"
-            >
-              {results[0].question}
-            </p>
+        <section className="game__questions">
+          <section className="card">
+            <section className="questions card-body bg-light">
+              <h2
+                className="card-header"
+                data-testid="question-category"
+              >
+                {results[0].category}
+              </h2>
+              <p
+                className="card-text lead"
+                data-testid="question-text"
+              >
+                {results[0].question}
+              </p>
+            </section>
           </section>
           <h1 className="text-center text-danger">
             Timer:
