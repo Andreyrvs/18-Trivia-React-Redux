@@ -26,7 +26,7 @@ class Question extends Component {
 
   handleAnswers() {
     const { results } = this.props;
-    const { correctColor, incorrectColor } = this.state;
+    const { correctColor, incorrectColor, timer } = this.state;
     const NUMBER_FIVE = 0.5;
     if (results.length > 0) {
       const answers = [...results[0].incorrect_answers, results[0].correct_answer];
@@ -37,12 +37,13 @@ class Question extends Component {
           {shuffled.map((item, index) => (
             <section key={ index } data-testid="answer-options">
               <Button
+                btnType="button"
+                isDisable={ timer === 0 }
                 style={ { border: `${
                   results[0].correct_answer === item
                     ? correctColor
                     : incorrectColor}`,
                 } }
-                btnType="button"
                 handleClick={ () => this.handleBorderColor(
                   results[0].correct_answer, item,
                 ) }
