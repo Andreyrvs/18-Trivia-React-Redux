@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__player {
+  align-items: center;
+  display: flex;
+}
+
+.header__player-score {
+  align-items: center;
+  display: flex;
+  margin: 0 5vw 0 0;
+}
+
+.main__game {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.game__questions {
+  margin: 5vw 0 0 5vw;
+}
+
+.questions {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.game__answers {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  justify-content: center;
+  margin: 5vw 15vw 0 0;
+}

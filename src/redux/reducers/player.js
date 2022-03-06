@@ -15,7 +15,6 @@ function player(state = INITIAL_STATE, action) {
       name: action.payload.name,
       gravatarEmail: action.payload.gravatarEmail,
     };
-
   default:
     return state;
   }

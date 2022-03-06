@@ -1,27 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
+import './components.css';
 
 class Question extends Component {
   constructor() {
     super();
     this.handleAnswers = this.handleAnswers.bind(this);
     this.handleBorderColor = this.handleBorderColor.bind(this);
+    this.handleCountDown = this.handleCountDown.bind(this);
+    this.handleScore = this.handleScore.bind(this);
 
     this.state = {
       correctColor: '',
       incorrectColor: '',
+      timer: 30,
     };
+  }
+
+  componentDidMount() {
+    this.handleCountDown();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   handleAnswers() {
     const { results } = this.props;
-
-    const { correctColor, incorrectColor } = this.state;
-    const NUMBER_FIVE = 0.5;
+    const { correctColor, incorrectColor, timer } = this.state;
+    const NUMBER_ZERO_POINT_FIVE = 0.5;
     if (results.length > 0) {
       const answers = [...results[0].incorrect_answers, results[0].correct_answer];
-      const shuffled = answers.sort(() => Math.random() - NUMBER_FIVE);
+      const shuffled = answers.sort(() => Math.random() - NUMBER_ZERO_POINT_FIVE);
 
       return (
         <>
@@ -34,6 +45,8 @@ class Question extends Component {
                     : incorrectColor}`,
                 } }
                 btnType="button"
+                bsClass="btn btn-secondary btn-lg"
+                isDisable={ timer === 0 }
                 handleClick={ () => this.handleBorderColor(
                   results[0].correct_answer, item,
                 ) }
@@ -63,19 +76,60 @@ class Question extends Component {
       });
   }
 
+  handleCountDown() {
+    const COUNTDOWN_FROM_ONE_TO_ONE_SECOND = 1000;
+    this.timer = setInterval(() => {
+      const { timer } = this.state;
+      if (timer === 1) {
+        clearInterval(this.timer);
+        this.handleBorderColor();
+      }
+      this.setState((prevState) => ({
+        timer: prevState.timer - 1,
+      }));
+    }, COUNTDOWN_FROM_ONE_TO_ONE_SECOND);
+  }
+
+  handleScore() {
+
+  }
+
   render() {
     const { results } = this.props;
-    console.log(results);
+    const { timer } = this.state;
+
     if (results.length === 0) {
       return <h1>Loading</h1>;
     }
     return (
-      <>
-        <h2 data-testid="question-category">{results[0].category}</h2>
-        <h2 data-testid="question-text">{results[0].question}</h2>
-        {this.handleAnswers()}
-
-      </>
+      <section className="main__game">
+        <section className="game__questions">
+          <section className="card">
+            <section className="questions card-body bg-light">
+              <h2
+                className="card-header"
+                data-testid="question-category"
+              >
+                {results[0].category}
+              </h2>
+              <p
+                className="card-text lead"
+                data-testid="question-text"
+              >
+                {results[0].question}
+              </p>
+            </section>
+          </section>
+          <h1 className="text-center text-danger">
+            Timer:
+            {' '}
+            {timer}
+          </h1>
+        </section>
+        <section className="game__answers">
+          {this.handleAnswers()}
+        </section>
+      </section>
     );
   }
 }
