@@ -9,6 +9,7 @@ class Question extends Component {
     this.handleAnswers = this.handleAnswers.bind(this);
     this.handleBorderColor = this.handleBorderColor.bind(this);
     this.handleCountDown = this.handleCountDown.bind(this);
+    this.handleScore = this.handleScore.bind(this);
 
     this.state = {
       correctColor: '',
@@ -87,6 +88,10 @@ class Question extends Component {
         timer: prevState.timer - 1,
       }));
     }, COUNTDOWN_FROM_ONE_TO_ONE_SECOND);
+  }
+
+  handleScore() {
+
   }
 
   render() {
