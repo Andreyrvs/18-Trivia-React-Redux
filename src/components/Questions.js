@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
+import './components.css';
 
 class Question extends Component {
   constructor() {
@@ -27,10 +28,10 @@ class Question extends Component {
   handleAnswers() {
     const { results } = this.props;
     const { correctColor, incorrectColor, timer } = this.state;
-    const NUMBER_FIVE = 0.5;
+    const NUMBER_ZERO_POINT_FIVE = 0.5;
     if (results.length > 0) {
       const answers = [...results[0].incorrect_answers, results[0].correct_answer];
-      const shuffled = answers.sort(() => Math.random() - NUMBER_FIVE);
+      const shuffled = answers.sort(() => Math.random() - NUMBER_ZERO_POINT_FIVE);
 
       return (
         <>
@@ -38,6 +39,7 @@ class Question extends Component {
             <section key={ index } data-testid="answer-options">
               <Button
                 btnType="button"
+                bsClass="btn btn-secondary btn-lg"
                 isDisable={ timer === 0 }
                 style={ { border: `${
                   results[0].correct_answer === item
@@ -74,16 +76,17 @@ class Question extends Component {
   }
 
   handleCountDown() {
-    const ONE_SECOND = 1000;
+    const COUNTDOWN_FROM_ONE_TO_ONE_SECOND = 1000;
     this.timer = setInterval(() => {
       const { timer } = this.state;
       if (timer === 1) {
         clearInterval(this.timer);
+        this.handleBorderColor();
       }
       this.setState((prevState) => ({
         timer: prevState.timer - 1,
       }));
-    }, ONE_SECOND);
+    }, COUNTDOWN_FROM_ONE_TO_ONE_SECOND);
   }
 
   render() {
@@ -95,16 +98,32 @@ class Question extends Component {
       return <h1>Loading</h1>;
     }
     return (
-      <>
-        <h2 data-testid="question-category">{results[0].category}</h2>
-        <h2 data-testid="question-text">{results[0].question}</h2>
-        {this.handleAnswers()}
-        <h1>
-          Timer:
-          {' '}
-          {timer}
-        </h1>
-      </>
+      <section className="main__game">
+        <section className="game__questions card">
+          <section className="questions card-body">
+            <h2
+              className="card-header"
+              data-testid="question-category"
+            >
+              {results[0].category}
+            </h2>
+            <p
+              className="card-text lead"
+              data-testid="question-text"
+            >
+              {results[0].question}
+            </p>
+          </section>
+          <h1 className="text-center">
+            Timer:
+            {' '}
+            {timer}
+          </h1>
+        </section>
+        <section className="game__answers">
+          {this.handleAnswers()}
+        </section>
+      </section>
     );
   }
 }
