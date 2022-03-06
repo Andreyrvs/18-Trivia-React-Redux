@@ -16,6 +16,7 @@ class Question extends Component {
 
   handleAnswers() {
     const { results } = this.props;
+
     const { correctColor, incorrectColor } = this.state;
     const NUMBER_FIVE = 0.5;
     if (results.length > 0) {
