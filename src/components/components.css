@@ -1,3 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__player {
+  align-items: center;
+  display: flex;
+}
+
+.header__player-score {
+  align-items: center;
+  display: flex;
+  margin: 0 5vw 0 0;
+}
+
 .main__game {
   display: flex;
   flex-flow: row;

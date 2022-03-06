@@ -9,13 +9,26 @@ class Header extends Component {
     const { player } = this.props;
     return (
       <header className="header bg-secondary">
-        <img
-          data-testid="header-profile-picture"
-          src={ `https://www.gravatar.com/avatar/${md5(player.gravatarEmail).toString()}` }
-          alt="Foto de perfil"
-        />
-        <span data-testid="header-player-name">{ player.name }</span>
-        <span data-testid="header-score">{ player.score }</span>
+        <section className="header__player">
+          <img
+            data-testid="header-profile-picture"
+            src={ `https://www.gravatar.com/avatar/${md5(player.gravatarEmail).toString()}` }
+            alt="Foto de perfil"
+          />
+          <h3
+            className="header__player-name m-2"
+            data-testid="header-player-name"
+          >
+            { player.name }
+          </h3>
+        </section>
+        <section className="header__player-score">
+          <span data-testid="header-score">
+            Pontos:
+            {' '}
+            { player.score }
+          </span>
+        </section>
       </header>
     );
   }
