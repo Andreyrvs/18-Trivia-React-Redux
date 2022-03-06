@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 
-// Criação do Header
 class Header extends Component {
   render() {
     const { player } = this.props;

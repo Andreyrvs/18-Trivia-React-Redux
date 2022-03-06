@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Button from '../components/Button';
-import { player, tokenThunk } from '../Redux/actions/index';
+import tokenThunk, { player } from '../redux/actions/index';
 
 class Login extends Component {
   constructor() {
     super();
     this.handleValidation = this.handleValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleClicks = this.handleClicks.bind(this);
+    this.handleClick = this.handleClick.bind(this);
 
     this.state = {
       email: '',
@@ -18,19 +17,17 @@ class Login extends Component {
     };
   }
 
-  handleClicks(event) {
-    event.preventDefault();
+  handleClick(event) {
+    event.preventDefault(event);
 
     const { email, name } = this.state;
-    const { history, login, tokenAPI } = this.props;
+    const { history, login, token } = this.props;
 
     login({
       gravatarEmail: email,
       name,
     });
-    tokenAPI();
-
-    history.push('/game');
+    token().then(() => history.push('/game'));
   }
 
   handleChange({ target }) {
@@ -61,28 +58,11 @@ class Login extends Component {
   render() {
     const { disable, name, email } = this.state;
     const { history } = this.props;
+
     return (
       <div className="App">
         <section>
-          <Button
-            dataTest="btn-settings"
-            handleClick={ () => { history.push('/settings'); } }
-          >
-            Configurações
-          </Button>
-        </section>
-        <section>
           <form>
-            <label htmlFor="input-email">
-              Email do Gravatar:
-              <input
-                id="input-email"
-                data-testid="input-gravatar-email"
-                name="email"
-                value={ email }
-                onChange={ this.handleChange }
-              />
-            </label>
             <label htmlFor="input-name">
               Nome do Jogador:
               <input
@@ -93,14 +73,32 @@ class Login extends Component {
                 onChange={ this.handleChange }
               />
             </label>
-            <Button
-              dataTest="btn-play"
-              isDisable={ disable }
-              btnType="button"
-              handleClick={ this.handleClicks }
+            <label htmlFor="input-email">
+              Email do Gravatar:
+              <input
+                id="input-email"
+                data-testid="input-gravatar-email"
+                name="email"
+                value={ email }
+                onChange={ this.handleChange }
+              />
+            </label>
+
+            <button
+              data-testid="btn-play"
+              disabled={ disable }
+              type="button"
+              onClick={ this.handleClick }
             >
               Play
-            </Button>
+            </button>
+            <button
+              data-testid="btn-settings"
+              type="button"
+              onClick={ () => { history.push('/settings'); } }
+            >
+              Configurações
+            </button>
           </form>
         </section>
       </div>
@@ -110,7 +108,7 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   login: (state) => dispatch(player(state)),
-  tokenAPI: () => dispatch(tokenThunk()),
+  token: () => dispatch(tokenThunk()),
 });
 
 Login.propTypes = {
