@@ -39,7 +39,13 @@ class Question extends Component {
           {shuffled.map((item, index) => (
             <section key={ index } data-testid="answer-options">
               <Button
+                style={ { border: `${
+                  results[0].correct_answer === item
+                    ? correctColor
+                    : incorrectColor}`,
+                } }
                 btnType="button"
+
                 bsClass="btn btn-secondary btn-lg"
                 isDisable={ timer === 0 }
                 style={ { border: `${
