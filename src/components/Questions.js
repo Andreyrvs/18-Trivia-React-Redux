@@ -13,8 +13,8 @@ class Question extends Component {
     this.handleCountDown = this.handleCountDown.bind(this);
     this.handleScore = this.handleScore.bind(this);
     this.handleButtonNext = this.handleButtonNext.bind(this);
-    this.handleBtn = this.handleBtn.bind(this);
-    this.telaDeFeedback = this.telaDeFeedback.bind(this);
+    this.handleNextQuestion = this.handleNextQuestion.bind(this);
+    this.handleChangeRoute = this.handleChangeRoute.bind(this);
 
     this.state = {
       correctColor: '',
@@ -140,20 +140,16 @@ class Question extends Component {
     });
   }
 
-  handleBtn() {
-    const { nextQuestion } = this.state;
-
+  handleNextQuestion() {
     this.setState((prevState) => ({
       nextQuestion: prevState.nextQuestion + 1,
       incorrectColor: '',
       correctColor: '',
     }));
-    console.log(nextQuestion);
   }
 
-  telaDeFeedback() {
+  handleChangeRoute() {
     const { history } = this.props;
-    // history.push('/');
     history.push('/feedback');
   }
 
@@ -161,7 +157,6 @@ class Question extends Component {
     const LAST_QUESTION_POSITIONS_NUMER = 4;
     const { results } = this.props;
     const { timer, isHidden, nextQuestion } = this.state;
-    console.log('results', results);
 
     if (results.length === 0) {
       return <h1>Loading</h1>;
@@ -199,7 +194,7 @@ class Question extends Component {
                 btnType="button"
                 bsClass="btn btn-success btn-lg"
                 dataTest="btn-next"
-                handleClick={ this.handleBtn }
+                handleClick={ this.handleNextQuestion }
                 style={ isHidden ? { display: 'block' } : { display: 'none' } }
               >
                 Proxima
@@ -209,7 +204,7 @@ class Question extends Component {
                 btnType="button"
                 bsClass="btn btn-warning btn-lg"
                 dataTest="btn-next"
-                handleClick={ this.telaDeFeedback }
+                handleClick={ this.handleChangeRoute }
               >
                 Feedback
               </Button>
