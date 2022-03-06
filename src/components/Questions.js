@@ -12,7 +12,7 @@ class Question extends Component {
     this.state = {
       correctColor: '',
       incorrectColor: '',
-      timer: 5,
+      timer: 30,
     };
   }
 
@@ -21,7 +21,7 @@ class Question extends Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.myInterval);
+    clearInterval(this.timer);
   }
 
   handleAnswers() {
@@ -73,16 +73,16 @@ class Question extends Component {
   }
 
   handleCountDown() {
-    const { timer } = this.state;
-    const THIRTY_SECONDS = 1000;
-    this.myInterval = setInterval(() => {
+    const ONE_SECOND = 1000;
+    this.timer = setInterval(() => {
+      const { timer } = this.state;
+      if (timer === 1) {
+        clearInterval(this.timer);
+      }
       this.setState((prevState) => ({
         timer: prevState.timer - 1,
       }));
-    }, THIRTY_SECONDS);
-    if (timer === 0) {
-      clearInterval(this.myInterval);
-    }
+    }, ONE_SECOND);
   }
 
   render() {
