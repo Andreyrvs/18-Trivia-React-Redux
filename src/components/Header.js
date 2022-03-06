@@ -6,13 +6,14 @@ import './components.css';
 
 class Header extends Component {
   render() {
-    const { player } = this.props;
+    const { playerName, gravatarEmail, score } = this.props;
+    console.log('/feedback => score', score);
     return (
       <header className="header bg-secondary">
         <section className="header__player">
           <img
             data-testid="header-profile-picture"
-            src={ `https://www.gravatar.com/avatar/${md5(player.gravatarEmail).toString()}` }
+            src={ `https://www.gravatar.com/avatar/${md5(gravatarEmail).toString()}` }
             alt="Foto de perfil"
           />
           <h3
@@ -21,14 +22,14 @@ class Header extends Component {
           >
             Jogador:
             {' '}
-            { player.name }
+            { playerName }
           </h3>
         </section>
         <section className="header__player-score">
           <h1 data-testid="header-score">
             Pontos:
             {' '}
-            { player.score }
+            { score }
           </h1>
         </section>
       </header>
@@ -41,7 +42,9 @@ Header.propTypes = {
 }.isRequire;
 
 const mapStateToProps = (state) => ({
-  player: state.player,
+  playerName: state.player.name,
+  gravatarEmail: state.player.gravatarEmail,
+  score: state.player.score,
 });
 
 export default connect(mapStateToProps, null)(Header);

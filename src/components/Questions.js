@@ -105,7 +105,7 @@ class Question extends Component {
   }
 
   handleScore(correctAnswer, item) {
-    const { results, score } = this.props;
+    const { results, score, headerScore } = this.props;
     const { timer, nextQuestion } = this.state;
     const NUMBER_TEN = 10;
     const EASY_DIFFICULTY_IS_WORTH_ONE_POINT = 1;
@@ -115,22 +115,26 @@ class Question extends Component {
 
     if (results[nextQuestion].difficulty === 'easy' && correctAnswer === item) {
       const easy = NUMBER_TEN + (timer * EASY_DIFFICULTY_IS_WORTH_ONE_POINT);
-      sumResults += easy;
+      Number(sumResults + easy + headerScore);
+      console.log('easy', easy);
+      console.log('easySumResults', sumResults);
       localStorage.setItem('score', easy);
     }
 
     if (results[nextQuestion].difficulty === 'medium' && correctAnswer === item) {
       const medium = NUMBER_TEN + (timer * MEDIUM_DIFFICULTY_IS_WORTH_TWO_POINTS);
-      sumResults += medium;
+      sumResults += Number(medium + headerScore);
+      Number(sumResults + medium + headerScore);
       localStorage.setItem('score', medium);
     }
 
     if (results[nextQuestion].difficulty === 'hard' && correctAnswer === item) {
       const hard = NUMBER_TEN + (timer * HARD_DIFFICULTY_IS_WORTH_THREE_POINTS);
-      sumResults += hard;
+      Number(sumResults + hard + headerScore);
       localStorage.setItem('score', hard);
     }
 
+    console.log('sum', sumResults);
     score({ score: sumResults });
   }
 
@@ -141,11 +145,13 @@ class Question extends Component {
   }
 
   handleNextQuestion() {
+    clearInterval(this.timer);
     this.setState((prevState) => ({
       nextQuestion: prevState.nextQuestion + 1,
-      incorrectColor: '',
-      correctColor: '',
-    }));
+      // incorrectColor: '',
+      // correctColor: '',
+      timer: 30,
+    }), () => this.handleCountDown());
   }
 
   handleChangeRoute() {
