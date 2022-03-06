@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import tokenThunk, { player } from '../redux/actions/index';
+import Button from '../components/Button';
 
 class Login extends Component {
   constructor() {
@@ -62,43 +63,48 @@ class Login extends Component {
     return (
       <div className="App">
         <section>
-          <form>
-            <label htmlFor="input-name">
-              Nome do Jogador:
+          <form className="mb-3">
+            <label htmlFor="input-name" className="form-label m-2">
+              {' '}
+              Nome do Jogador
               <input
                 id="input-name"
                 data-testid="input-player-name"
+                className="form-control"
                 name="name"
                 value={ name }
                 onChange={ this.handleChange }
               />
             </label>
-            <label htmlFor="input-email">
+            <label htmlFor="input-email" className="form-label m-2">
               Email do Gravatar:
               <input
                 id="input-email"
                 data-testid="input-gravatar-email"
+                className="form-control"
                 name="email"
                 value={ email }
                 onChange={ this.handleChange }
               />
             </label>
 
-            <button
-              data-testid="btn-play"
-              disabled={ disable }
-              type="button"
-              onClick={ this.handleClick }
+            <Button
+              dataTest="btn-play"
+              isDisable={ disable }
+              bsClass="btn btn-primary m-2"
+              btnType="button"
+              handleClick={ this.handleClick }
             >
               Play
-            </button>
-            <button
-              data-testid="btn-settings"
-              type="button"
-              onClick={ () => { history.push('/settings'); } }
+            </Button>
+            <Button
+              dataTest="btn-settings"
+              btnType="button"
+              bsClass="btn btn-secondary m-2"
+              handleClick={ () => { history.push('/settings'); } }
             >
               Configurações
-            </button>
+            </Button>
           </form>
         </section>
       </div>

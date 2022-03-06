@@ -114,7 +114,7 @@ class Question extends Component {
               {results[0].question}
             </p>
           </section>
-          <h1 className="text-center">
+          <h1 className="text-center text-danger">
             Timer:
             {' '}
             {timer}

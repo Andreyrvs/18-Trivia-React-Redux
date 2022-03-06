@@ -8,7 +8,7 @@ class Header extends Component {
   render() {
     const { player } = this.props;
     return (
-      <header className="header">
+      <header className="header bg-primary">
         <img
           data-testid="header-profile-picture"
           src={ `https://www.gravatar.com/avatar/${md5(player.gravatarEmail).toString()}` }

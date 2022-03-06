@@ -1,29 +1,17 @@
-:root {
-
-  --main-bg-color: #adb5bd73
-
-}
-
 .main__game {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
 }
 
-.game__questions{
+.game__questions {
   margin: 5vw 0 0 5vw;
 }
 
 .questions {
-  background-color: var(--main-bg-color);
   display: flex;
   flex-flow: column wrap;
 }
-
-.header {
-  background-color: var(--main-bg-color);
-}
-
 
 .game__answers {
   display: flex;
