@@ -87,7 +87,6 @@ class Login extends Component {
                 onChange={ this.handleChange }
               />
             </label>
-
             <Button
               dataTest="btn-play"
               isDisable={ disable }
