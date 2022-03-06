@@ -115,23 +115,29 @@ class Question extends Component {
 
     if (results[nextQuestion].difficulty === 'easy' && correctAnswer === item) {
       const easy = NUMBER_TEN + (timer * EASY_DIFFICULTY_IS_WORTH_ONE_POINT);
-      Number(sumResults + easy + headerScore);
+      sumResults += easy + headerScore;
       console.log('easy', easy);
       console.log('easySumResults', sumResults);
       localStorage.setItem('score', easy);
+    } else if (correctAnswer !== item) {
+      return headerScore + 0;
     }
 
     if (results[nextQuestion].difficulty === 'medium' && correctAnswer === item) {
       const medium = NUMBER_TEN + (timer * MEDIUM_DIFFICULTY_IS_WORTH_TWO_POINTS);
-      sumResults += Number(medium + headerScore);
-      Number(sumResults + medium + headerScore);
+      sumResults += medium + headerScore;
+      // sumResults + medium + headerScore;
       localStorage.setItem('score', medium);
+    } else if (correctAnswer !== item) {
+      return headerScore + 0;
     }
 
     if (results[nextQuestion].difficulty === 'hard' && correctAnswer === item) {
       const hard = NUMBER_TEN + (timer * HARD_DIFFICULTY_IS_WORTH_THREE_POINTS);
-      Number(sumResults + hard + headerScore);
+      sumResults += hard + headerScore;
       localStorage.setItem('score', hard);
+    } else if (correctAnswer !== item) {
+      return headerScore + 0;
     }
 
     console.log('sum', sumResults);
