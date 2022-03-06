@@ -13,12 +13,14 @@ class Question extends Component {
     this.handleCountDown = this.handleCountDown.bind(this);
     this.handleScore = this.handleScore.bind(this);
     this.handleButtonNext = this.handleButtonNext.bind(this);
+    this.handleBtn = this.handleBtn.bind(this);
 
     this.state = {
       correctColor: '',
       incorrectColor: '',
       timer: 30,
       isHidden: false,
+      nextQuestion: 0,
     };
   }
 
@@ -32,11 +34,11 @@ class Question extends Component {
 
   handleAnswers() {
     const { results } = this.props;
-    const { correctColor, incorrectColor, timer } = this.state;
+    const { correctColor, incorrectColor, timer, nextQuestion } = this.state;
     const NUMBER_ZERO_POINT_FIVE = 0.5;
 
     if (results.length > 0) {
-      const answers = [...results[0].incorrect_answers, results[0].correct_answer];
+      const answers = [...results[nextQuestion].incorrect_answers, results[nextQuestion].correct_answer];
       const shuffled = answers.sort(() => Math.random() - NUMBER_ZERO_POINT_FIVE);
 
       return (
@@ -45,7 +47,7 @@ class Question extends Component {
             <section key={ index } data-testid="answer-options">
               <Button
                 style={ { border: `${
-                  results[0].correct_answer === item
+                  results[nextQuestion].correct_answer === item
                     ? correctColor
                     : incorrectColor}`,
                 } }
@@ -53,9 +55,9 @@ class Question extends Component {
                 bsClass="btn btn-secondary btn-lg"
                 isDisable={ timer === 0 }
                 handleClick={ () => this.handleClick(
-                  results[0].correct_answer, item,
+                  results[nextQuestion].correct_answer, item,
                 ) }
-                dataTest={ results[0].correct_answer === item
+                dataTest={ results[nextQuestion].correct_answer === item
                   ? 'correct-answer'
                   : `wrong-answer-${index}` }
               >
@@ -101,26 +103,26 @@ class Question extends Component {
 
   handleScore(correctAnswer, item) {
     const { results, score } = this.props;
-    const { timer } = this.state;
+    const { timer, nextQuestion } = this.state;
     const NUMBER_TEN = 10;
     const EASY_DIFFICULTY_IS_WORTH_ONE_POINT = 1;
     const MEDIUM_DIFFICULTY_IS_WORTH_TWO_POINTS = 2;
     const HARD_DIFFICULTY_IS_WORTH_THREE_POINTS = 3;
     let sumResults = 0;
 
-    if (results[0].difficulty === 'easy' && correctAnswer === item) {
+    if (results[nextQuestion].difficulty === 'easy' && correctAnswer === item) {
       const easy = NUMBER_TEN + (timer * EASY_DIFFICULTY_IS_WORTH_ONE_POINT);
       sumResults += easy;
       localStorage.setItem('score', easy);
     }
 
-    if (results[0].difficulty === 'medium' && correctAnswer === item) {
+    if (results[nextQuestion].difficulty === 'medium' && correctAnswer === item) {
       const medium = NUMBER_TEN + (timer * MEDIUM_DIFFICULTY_IS_WORTH_TWO_POINTS);
       sumResults += medium;
       localStorage.setItem('score', medium);
     }
 
-    if (results[0].difficulty === 'hard' && correctAnswer === item) {
+    if (results[nextQuestion].difficulty === 'hard' && correctAnswer === item) {
       const hard = NUMBER_TEN + (timer * HARD_DIFFICULTY_IS_WORTH_THREE_POINTS);
       sumResults += hard;
       localStorage.setItem('score', hard);
@@ -135,9 +137,23 @@ class Question extends Component {
     });
   }
 
+  handleBtn() {
+    const {history} = this.props
+    const { nextQuestion } = this.state;
+
+    this.setState((prevState) => ({
+      nextQuestion: prevState.nextQuestion + 1,
+      incorrectColor: '',
+      correctColor: '',
+    }));
+
+    nextQuestion === > 5 && history
+
+  }
+
   render() {
     const { results } = this.props;
-    const { timer, isHidden } = this.state;
+    const { timer, isHidden, nextQuestion } = this.state;
 
     if (results.length === 0) {
       return <h1>Loading</h1>;
@@ -151,13 +167,13 @@ class Question extends Component {
                 className="card-header"
                 data-testid="question-category"
               >
-                {results[0].category}
+                {results[nextQuestion].category}
               </h2>
               <p
                 className="card-text lead"
                 data-testid="question-text"
               >
-                {results[0].question}
+                {results[nextQuestion].question}
               </p>
             </section>
           </section>
@@ -173,8 +189,8 @@ class Question extends Component {
             btnType="button"
             bsClass="btn btn-success btn-lg"
             dataTest="btn-next"
+            handleClick={ this.handleBtn }
             style={ isHidden ? { display: 'block' } : { display: 'none' } }
-            // handleClick={ this.handleButtonNext }
           >
             Proxima
 
