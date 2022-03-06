@@ -14,6 +14,7 @@ class Question extends Component {
     this.handleScore = this.handleScore.bind(this);
     this.handleButtonNext = this.handleButtonNext.bind(this);
     this.handleBtn = this.handleBtn.bind(this);
+    this.telaDeFeedback = this.telaDeFeedback.bind(this);
 
     this.state = {
       correctColor: '',
@@ -38,7 +39,9 @@ class Question extends Component {
     const NUMBER_ZERO_POINT_FIVE = 0.5;
 
     if (results.length > 0) {
-      const answers = [...results[nextQuestion].incorrect_answers, results[nextQuestion].correct_answer];
+      const answers = [
+        ...results[nextQuestion].incorrect_answers, results[nextQuestion].correct_answer,
+      ];
       const shuffled = answers.sort(() => Math.random() - NUMBER_ZERO_POINT_FIVE);
 
       return (
@@ -138,7 +141,6 @@ class Question extends Component {
   }
 
   handleBtn() {
-    const {history} = this.props
     const { nextQuestion } = this.state;
 
     this.setState((prevState) => ({
@@ -146,14 +148,20 @@ class Question extends Component {
       incorrectColor: '',
       correctColor: '',
     }));
+    console.log(nextQuestion);
+  }
 
-    nextQuestion === > 5 && history
-
+  telaDeFeedback() {
+    const { history } = this.props;
+    // history.push('/');
+    history.push('/feedback');
   }
 
   render() {
+    const LAST_QUESTION_POSITIONS_NUMER = 4;
     const { results } = this.props;
     const { timer, isHidden, nextQuestion } = this.state;
+    console.log('results', results);
 
     if (results.length === 0) {
       return <h1>Loading</h1>;
@@ -185,16 +193,27 @@ class Question extends Component {
         </section>
         <section className="game__answers">
           {this.handleAnswers()}
-          <Button
-            btnType="button"
-            bsClass="btn btn-success btn-lg"
-            dataTest="btn-next"
-            handleClick={ this.handleBtn }
-            style={ isHidden ? { display: 'block' } : { display: 'none' } }
-          >
-            Proxima
-
-          </Button>
+          { nextQuestion !== LAST_QUESTION_POSITIONS_NUMER
+            ? (
+              <Button
+                btnType="button"
+                bsClass="btn btn-success btn-lg"
+                dataTest="btn-next"
+                handleClick={ this.handleBtn }
+                style={ isHidden ? { display: 'block' } : { display: 'none' } }
+              >
+                Proxima
+              </Button>
+            ) : (
+              <Button
+                btnType="button"
+                bsClass="btn btn-warning btn-lg"
+                dataTest="btn-next"
+                handleClick={ this.telaDeFeedback }
+              >
+                Feedback
+              </Button>
+            )}
         </section>
       </section>
     );

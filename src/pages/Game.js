@@ -42,12 +42,13 @@ export class Game extends Component {
 
   render() {
     const { results } = this.state;
+    const { history } = this.props;
 
     return (
       <section>
         <Header />
         <main>
-          <Question results={ results } />
+          <Question results={ results } history={ history } />
         </main>
       </section>
     );
