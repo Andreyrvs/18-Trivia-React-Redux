@@ -19,15 +19,17 @@ class Header extends Component {
             className="header__player-name m-2"
             data-testid="header-player-name"
           >
+            Jogador:
+            {' '}
             { player.name }
           </h3>
         </section>
         <section className="header__player-score">
-          <span data-testid="header-score">
+          <h1 data-testid="header-score">
             Pontos:
             {' '}
             { player.score }
-          </span>
+          </h1>
         </section>
       </header>
     );
