@@ -16,6 +16,7 @@ class Question extends Component {
     this.handleBtn = this.handleBtn.bind(this);
     this.telaDeFeedback = this.telaDeFeedback.bind(this);
 
+
     this.state = {
       correctColor: '',
       incorrectColor: '',
