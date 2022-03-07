@@ -7,7 +7,7 @@ import './components.css';
 class Header extends Component {
   render() {
     const { playerName, gravatarEmail, score } = this.props;
-    console.log('/feedback => score', score);
+    // console.log('/feedback => score', score);
     return (
       <header className="header bg-secondary">
         <section className="header__player">
@@ -47,4 +47,4 @@ const mapStateToProps = (state) => ({
   score: state.player.score,
 });
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);
