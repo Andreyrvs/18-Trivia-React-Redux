@@ -1,10 +1,11 @@
-import { PLAYER, PLAYER_SCORE } from '../actions';
+import { PLAYER, PLAYER_SCORE, URL_IMAGE_GRAVATAR } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
   assertions: 0,
   score: 0,
   gravatarEmail: '',
+  urlImage: '',
 };
 
 function player(state = INITIAL_STATE, action) {
@@ -20,6 +21,11 @@ function player(state = INITIAL_STATE, action) {
       ...state,
       assertions: action.payload.assertions,
       score: action.payload.score,
+    };
+  case URL_IMAGE_GRAVATAR:
+    return {
+      ...state,
+      urlImage: action.payload,
     };
   default:
     return state;

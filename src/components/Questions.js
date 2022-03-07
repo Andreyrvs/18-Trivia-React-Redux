@@ -13,8 +13,8 @@ class Question extends Component {
     this.handleCountDown = this.handleCountDown.bind(this);
     this.handleScore = this.handleScore.bind(this);
     this.handleButtonNext = this.handleButtonNext.bind(this);
-    this.handleBtn = this.handleBtn.bind(this);
-    this.telaDeFeedback = this.telaDeFeedback.bind(this);
+    this.handleNextQuestion = this.handleNextQuestion.bind(this);
+    this.handleChangeRoute = this.handleChangeRoute.bind(this);
 
     this.state = {
       correctColor: '',
@@ -105,7 +105,7 @@ class Question extends Component {
   }
 
   handleScore(correctAnswer, item) {
-    const { results, score } = this.props;
+    const { results, score, headerScore, playerName, gravatarImage } = this.props;
     const { timer, nextQuestion } = this.state;
     const NUMBER_TEN = 10;
     const EASY_DIFFICULTY_IS_WORTH_ONE_POINT = 1;
@@ -115,22 +115,31 @@ class Question extends Component {
 
     if (results[nextQuestion].difficulty === 'easy' && correctAnswer === item) {
       const easy = NUMBER_TEN + (timer * EASY_DIFFICULTY_IS_WORTH_ONE_POINT);
-      sumResults += easy;
-      localStorage.setItem('score', easy);
+      sumResults += easy + headerScore;
+    } else if (correctAnswer !== item) {
+      return headerScore + 0;
     }
 
     if (results[nextQuestion].difficulty === 'medium' && correctAnswer === item) {
       const medium = NUMBER_TEN + (timer * MEDIUM_DIFFICULTY_IS_WORTH_TWO_POINTS);
-      sumResults += medium;
-      localStorage.setItem('score', medium);
+      sumResults += medium + headerScore;
+    } else if (correctAnswer !== item) {
+      return headerScore + 0;
     }
 
     if (results[nextQuestion].difficulty === 'hard' && correctAnswer === item) {
       const hard = NUMBER_TEN + (timer * HARD_DIFFICULTY_IS_WORTH_THREE_POINTS);
-      sumResults += hard;
-      localStorage.setItem('score', hard);
+      sumResults += hard + headerScore;
+    } else if (correctAnswer !== item) {
+      return headerScore + 0;
     }
 
+    console.log('sum', sumResults);
+    localStorage.setItem('player', JSON.stringify(
+      [
+        { name: playerName, score: sumResults, picture: gravatarImage },
+      ],
+    ));
     score({ score: sumResults });
   }
 
@@ -140,20 +149,18 @@ class Question extends Component {
     });
   }
 
-  handleBtn() {
-    const { nextQuestion } = this.state;
-
+  handleNextQuestion() {
+    clearInterval(this.timer);
     this.setState((prevState) => ({
       nextQuestion: prevState.nextQuestion + 1,
       incorrectColor: '',
       correctColor: '',
-    }));
-    console.log(nextQuestion);
+      timer: 30,
+    }), () => this.handleCountDown());
   }
 
-  telaDeFeedback() {
+  handleChangeRoute() {
     const { history } = this.props;
-    // history.push('/');
     history.push('/feedback');
   }
 
@@ -161,7 +168,6 @@ class Question extends Component {
     const LAST_QUESTION_POSITIONS_NUMER = 4;
     const { results } = this.props;
     const { timer, isHidden, nextQuestion } = this.state;
-    console.log('results', results);
 
     if (results.length === 0) {
       return <h1>Loading</h1>;
@@ -199,7 +205,7 @@ class Question extends Component {
                 btnType="button"
                 bsClass="btn btn-success btn-lg"
                 dataTest="btn-next"
-                handleClick={ this.handleBtn }
+                handleClick={ this.handleNextQuestion }
                 style={ isHidden ? { display: 'block' } : { display: 'none' } }
               >
                 Proxima
@@ -209,7 +215,7 @@ class Question extends Component {
                 btnType="button"
                 bsClass="btn btn-warning btn-lg"
                 dataTest="btn-next"
-                handleClick={ this.telaDeFeedback }
+                handleClick={ this.handleChangeRoute }
               >
                 Feedback
               </Button>
@@ -223,6 +229,9 @@ class Question extends Component {
 const mapStateToProps = (state) => ({
   assertions: state.player.assertions,
   headerScore: state.player.score,
+  playerName: state.player.name,
+  gravatarImage: state.player.urlImage,
+  score: state.player.score,
 });
 
 const mapDispatchToProps = (dispatch) => ({
