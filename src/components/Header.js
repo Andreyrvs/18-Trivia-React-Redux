@@ -28,11 +28,10 @@ class Header extends Component {
           </h3>
         </section>
         <section className="header__player-score">
-          <h1 data-testid="header-score">
+          <h1>
             Pontos:
-            {' '}
-            { score }
           </h1>
+          <h1 data-testid="header-score">{ Number(score) }</h1>
         </section>
       </header>
     );
