@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import './components.css';
+import { urlImageGravatar } from '../redux/actions';
 
 class Header extends Component {
   render() {
     const { playerName, gravatarEmail, score } = this.props;
-    // console.log('/feedback => score', score);
+    const playerData = JSON.parse(localStorage.getItem('player'));
+    console.log('/feedback => score', playerData);
     return (
       <header className="header bg-secondary">
         <section className="header__player">
@@ -22,7 +24,7 @@ class Header extends Component {
           >
             Jogador:
             {' '}
-            { playerName }
+            {playerName }
           </h3>
         </section>
         <section className="header__player-score">
@@ -37,14 +39,18 @@ class Header extends Component {
   }
 }
 
-Header.propTypes = {
-  player: PropTypes.object,
-}.isRequire;
-
 const mapStateToProps = (state) => ({
   playerName: state.player.name,
   gravatarEmail: state.player.gravatarEmail,
   score: state.player.score,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  urlImageGravatars: (state) => dispatch(urlImageGravatar(state)),
+});
+
+Header.propTypes = {
+  player: PropTypes.object,
+}.isRequire;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

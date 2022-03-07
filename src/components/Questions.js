@@ -105,7 +105,7 @@ class Question extends Component {
   }
 
   handleScore(correctAnswer, item) {
-    const { results, score, headerScore } = this.props;
+    const { results, score, headerScore, playerName, gravatarImage } = this.props;
     const { timer, nextQuestion } = this.state;
     const NUMBER_TEN = 10;
     const EASY_DIFFICULTY_IS_WORTH_ONE_POINT = 1;
@@ -135,7 +135,11 @@ class Question extends Component {
     }
 
     console.log('sum', sumResults);
-    localStorage.setItem('player', JSON.stringify({ score: sumResults }));
+    localStorage.setItem('player', JSON.stringify(
+      [
+        { name: playerName, score: sumResults, picture: gravatarImage },
+      ],
+    ));
     score({ score: sumResults });
   }
 
@@ -225,6 +229,9 @@ class Question extends Component {
 const mapStateToProps = (state) => ({
   assertions: state.player.assertions,
   headerScore: state.player.score,
+  playerName: state.player.name,
+  gravatarImage: state.player.urlImage,
+  score: state.player.score,
 });
 
 const mapDispatchToProps = (dispatch) => ({
