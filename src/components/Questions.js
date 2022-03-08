@@ -8,13 +8,6 @@ import './components.css';
 class Question extends Component {
   constructor() {
     super();
-    this.handleAnswers = this.handleAnswers.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleCountDown = this.handleCountDown.bind(this);
-    this.handleScore = this.handleScore.bind(this);
-    this.handleButtonNext = this.handleButtonNext.bind(this);
-    this.handleNextQuestion = this.handleNextQuestion.bind(this);
-    this.handleChangeRoute = this.handleChangeRoute.bind(this);
 
     this.state = {
       correctColor: '',
@@ -33,7 +26,7 @@ class Question extends Component {
     clearInterval(this.timer);
   }
 
-  handleAnswers() {
+  handleAnswers = () => {
     const { results } = this.props;
     const { correctColor, incorrectColor, timer, nextQuestion } = this.state;
     const NUMBER_ZERO_POINT_FIVE = 0.5;
@@ -74,7 +67,7 @@ class Question extends Component {
     }
   }
 
-  handleClick(correctAnswer, item) {
+  handleClick = (correctAnswer, item) => {
     clearInterval(this.timer);
     this.handleScore(correctAnswer, item);
     this.handleButtonNext();
@@ -89,7 +82,7 @@ class Question extends Component {
       });
   }
 
-  handleCountDown() {
+  handleCountDown = () => {
     const COUNTDOWN_FROM_ONE_TO_ONE_SECOND = 1000;
     this.timer = setInterval(() => {
       const { timer } = this.state;
@@ -104,18 +97,25 @@ class Question extends Component {
     }, COUNTDOWN_FROM_ONE_TO_ONE_SECOND);
   }
 
-  handleScore(correctAnswer, item) {
-    const { results, score, headerScore, playerName, gravatarImage } = this.props;
+  handleScore = (correctAnswer, item) => {
+    const {
+      results,
+      score, headerScore,
+      playerName, gravatarImage,
+      assertions,
+    } = this.props;
     const { timer, nextQuestion } = this.state;
     const NUMBER_TEN = 10;
     const EASY_DIFFICULTY_IS_WORTH_ONE_POINT = 1;
     const MEDIUM_DIFFICULTY_IS_WORTH_TWO_POINTS = 2;
     const HARD_DIFFICULTY_IS_WORTH_THREE_POINTS = 3;
     let sumResults = 0;
+    let allAssertions = 0;
 
     if (results[nextQuestion].difficulty === 'easy' && correctAnswer === item) {
       const easy = NUMBER_TEN + (timer * EASY_DIFFICULTY_IS_WORTH_ONE_POINT);
       sumResults += easy + headerScore;
+      allAssertions = assertions + 1;
     } else if (correctAnswer !== item) {
       return headerScore + 0;
     }
@@ -123,6 +123,7 @@ class Question extends Component {
     if (results[nextQuestion].difficulty === 'medium' && correctAnswer === item) {
       const medium = NUMBER_TEN + (timer * MEDIUM_DIFFICULTY_IS_WORTH_TWO_POINTS);
       sumResults += medium + headerScore;
+      allAssertions = assertions + 1;
     } else if (correctAnswer !== item) {
       return headerScore + 0;
     }
@@ -130,6 +131,7 @@ class Question extends Component {
     if (results[nextQuestion].difficulty === 'hard' && correctAnswer === item) {
       const hard = NUMBER_TEN + (timer * HARD_DIFFICULTY_IS_WORTH_THREE_POINTS);
       sumResults += hard + headerScore;
+      allAssertions = assertions + 1;
     } else if (correctAnswer !== item) {
       return headerScore + 0;
     }
@@ -140,16 +142,16 @@ class Question extends Component {
         { name: playerName, score: sumResults, picture: gravatarImage },
       ],
     ));
-    score({ score: sumResults });
+    score({ score: sumResults, assertions: allAssertions });
   }
 
-  handleButtonNext() {
+  handleButtonNext = () => {
     this.setState({
       isHidden: true,
     });
   }
 
-  handleNextQuestion() {
+  handleNextQuestion = () => {
     clearInterval(this.timer);
     this.setState((prevState) => ({
       nextQuestion: prevState.nextQuestion + 1,
@@ -159,7 +161,7 @@ class Question extends Component {
     }), () => this.handleCountDown());
   }
 
-  handleChangeRoute() {
+  handleChangeRoute = () => {
     const { history } = this.props;
     history.push('/feedback');
   }
