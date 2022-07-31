@@ -1,51 +1,33 @@
-# My Awesome Project
+# Trivia
 
 ## Contexto
 
-Este projeto trata-se de uma ferramenta de back-office para armazenar e buscar dados de erros que ocorreram com clientes.
+Este projeto trata-se um jogo de perguntas e respostas baseado no jogo Trivia (tipo um show do milhão americano rs)
 
 ## Técnologias usadas
 
 Front-end:
-> Desenvolvido usando: React, Redux, CSS3, HTML5, Redis, ES6
-
-Back-end:
-> Desenvolvido usando: NodeJS, ExpressJS, MongoDB, MYSQL, ES6
+> Desenvolvido usando: React, Redux, CSS3
 
 ## Instalando Dependências
 
-> Backend
+* clone o repositório
 
-```bash
-cd api/ 
-npm install
-```
+  ```bash
+  git clone git@github.com:Andreyrvs/project-trivia-react-redux.git
+  ```
 
 > Frontend
 
 ```bash
-cd src/
+cd project-trivia-react-redux
 npm install
 ```
 
 ## Executando aplicação
 
-* Para rodar o back-end:
-
-  ```bash
-  cd api/ && npm start
-  ```
-
 * Para rodar o front-end:
 
   ```bash
     cd src/ && npm start
-  ```
-
-## Executando Testes
-
-* Para rodar todos os testes:
-
-  ```bash
-    npm test
   ```
