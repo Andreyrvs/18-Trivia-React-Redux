@@ -1,5 +1,7 @@
 # Trivia
 
+![Trivia](./Aplicacao.png)
+
 ## Contexto
 
 Este projeto trata-se um jogo de perguntas e respostas baseado no jogo Trivia (tipo um show do milhão americano)
