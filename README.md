@@ -4,6 +4,10 @@
 
 Este projeto trata-se um jogo de perguntas e respostas baseado no jogo Trivia (tipo um show do milhão americano)
 
+Colegas que contribuiram com o projeto:
+@gsmunizz
+@gabrielmendesa
+
 ## Técnologias usadas
 
 Front-end:
