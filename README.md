@@ -2,12 +2,12 @@
 
 ## Contexto
 
-Este projeto trata-se um jogo de perguntas e respostas baseado no jogo Trivia (tipo um show do milhão americano rs)
+Este projeto trata-se um jogo de perguntas e respostas baseado no jogo Trivia (tipo um show do milhão americano)
 
 ## Técnologias usadas
 
 Front-end:
-> Desenvolvido usando: React, Redux, CSS3
+> Desenvolvido usando: React, React Router, Redux, Redux Thunk, CSS3
 
 ## Instalando Dependências
 
