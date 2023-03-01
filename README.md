@@ -1,4 +1,4 @@
-# Trivia Redux
+# Trivia React Redux
 
 ## Contexto
 
@@ -42,13 +42,13 @@ Adquiri essas habilidades ao desenvolver esse projeto:
 - Clone o projeto:
 
   ```bash
-  git clone 
+  git clone git@github.com:Andreyrvs/18-Trivia-React-Redux.git
   ```
 
   > Front-end
 
   ```bash
-  cd src/
+  cd 18-Trivia-React-Redux/
   npm install
   ```
 
