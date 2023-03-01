@@ -4,6 +4,8 @@
 
 Este projeto trata-se um jogo de perguntas e respostas baseado no jogo Trivia (tipo um show do milhão americano)
 
+> Utiliza a API [Open TRIVIA database](https://opentdb.com/)
+
 Colegas que contribuíram para a realização do projeto:
 
 - [@gsmunizz](https://github.com/gsmunizz "github")
