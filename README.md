@@ -12,7 +12,7 @@ Colegas que contribuíram para a realização do projeto:
 ## Técnologias usadas
 
 Front-end:
-> Desenvolvido usando: React, React Router, Redux, Redux Thunk, Bootstrap 5
+> Desenvolvido usando: React, React Router, Redux, Redux Thunk, Bootstrap 5, Kanban
 
 ## Habilidades
 
@@ -59,3 +59,5 @@ Adquiri essas habilidades ao desenvolver esse projeto:
   ```bash
   cd src/ && npm start
   ```
+
+> A aplicação utiliza a resolução **1366 x 768**
