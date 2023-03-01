@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import LogoTrivia from '../assets/trivia.png';
 import tokenThunk, { player } from '../redux/actions/index';
 import Button from '../components/Button';
+import BlobBg from '../assets/blog.svg';
 
 class Login extends Component {
   constructor() {
@@ -59,11 +61,19 @@ class Login extends Component {
   render() {
     const { disable, name, email } = this.state;
     const { history } = this.props;
-
+    const bootstrap = 'd-flex flex-column align-items-center justify-content-center vw-100 vh-100';
     return (
-      <div className="App">
-        <section>
-          <form className="mb-3">
+      <div
+        style={ { backgroundImage: `url(${BlobBg})`, backgroundRepeat: 'no-repeat' } }
+        className={ `App ${bootstrap}` }
+      >
+        <img
+          className="w-50 h-25"
+          src={ LogoTrivia }
+          alt="logo"
+        />
+        <section className="d-flex w-50">
+          <form className="mb-3 d-flex flex-column w-100">
             <label htmlFor="input-name" className="form-label m-2">
               {' '}
               Nome do Jogador
@@ -106,6 +116,7 @@ class Login extends Component {
             </Button>
           </form>
         </section>
+
       </div>
     );
   }
